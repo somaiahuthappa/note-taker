@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const uuidv4 = require('uuid/v4');
+const { uuid } = require('uuidv4');
 const notesDb = require('../../db/db.json');
 const {newNote, validate, update} = require('../lib/dbHelperFunctions');
 
@@ -13,7 +13,7 @@ router.post("/notes", (req, res) => {
     if(!validate(req.body)) {
         res.status(400).send('Please enter a title and text for the note')
     } else {
-        req.body.id = uuidv4();
+        req.body.id = uuid();
         res.json(newNote(req.body, notesDb));
         res.json(notesDb)
     }
